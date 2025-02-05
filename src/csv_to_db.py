@@ -1,6 +1,7 @@
 import csv
 from tinydb import TinyDB, Query
 import os
+import argparse
 
 def read_csv(file_path):
     # Read and parse the CSV file
@@ -35,6 +36,16 @@ def query_db(db_path, query_field, query_value):
     results = db.search(query[query_field] == query_value)
     db.close()
     return results
+
+def main():
+    # Main CLI function
+    
+    parser = argparse.ArgumentParser(description="Convert CSV to database")
+    parser.add_argument("csv_file", help="Path to the CSV file")
+    parser.add_argument("--db", help="Path to the database file", default="data.json")
+    args = parser.parse_args()
+    data = read_csv(args.csv_file)
+    insert_into_db(data, args.db)
 
 if __name__ == "__main__":
     # Main execution logic
