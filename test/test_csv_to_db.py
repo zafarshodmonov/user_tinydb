@@ -40,7 +40,7 @@ def test_insert_and_query(tmp_path):
     assert len(inserted_ids) == 1
     
     # Test query
-    results = query_db(db_path)
+    results = query_db(db_path, 'first_name', 'Test')
     assert len(results) == 1
     assert results[0]['first_name'] == 'Test'
 
@@ -58,7 +58,7 @@ def test_query_with_filter(tmp_path):
 
 def test_insert_empty_data():
     with pytest.raises(ValueError):
-        insert_into_db([])
+        insert_into_db([], 'test_db.json')
 
 def test_main_cli(tmp_path, sample_csv, monkeypatch):
     db_path = str(tmp_path / "cli_test.json")
